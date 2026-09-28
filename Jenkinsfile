@@ -1,5 +1,5 @@
 pipeline {
-// we are defining the jenkins pipeline
+
     agent any
 
     stages {
@@ -28,11 +28,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building application...'
+
                 bat 'if exist build rmdir /s /q build'
                 bat 'mkdir build'
-                bat 'xcopy /E /I /Y app.js build\\app.js'
-                bat 'xcopy /E /I /Y package.json build\\package.json'
-                bat 'xcopy /E /I /Y package-lock.json build\\package-lock.json'
+
+                bat 'copy /Y app.js build\\app.js'
+                bat 'copy /Y package.json build\\package.json'
+                bat 'copy /Y package-lock.json build\\package-lock.json'
             }
         }
 
@@ -42,6 +44,7 @@ pipeline {
             }
         }
     }
+
     post {
         success {
             archiveArtifacts artifacts: 'build/**', fingerprint: true

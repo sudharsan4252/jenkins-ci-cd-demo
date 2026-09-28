@@ -28,6 +28,11 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building application...'
+                bat 'if exist build rmdir /s /q build'
+                bat 'mkdir build'
+                bat 'xcopy /E /I /Y app.js build\\app.js'
+                bat 'xcopy /E /I /Y package.json build\\package.json'
+                bat 'xcopy /E /I /Y package-lock.json build\\package-lock.json'
             }
         }
 
@@ -35,6 +40,11 @@ pipeline {
             steps {
                 echo 'Deploying application...'
             }
+        }
+    }
+    post {
+        success {
+            archiveArtifacts artifacts: 'build/**', fingerprint: true
         }
     }
 }

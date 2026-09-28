@@ -39,7 +39,7 @@ pipeline {
                 bat 'docker stop jenkins-demo || exit 0'
                 bat 'docker rm jenkins-demo || exit 0'
 
-                bat 'docker run -d -p 3000:3000 --name jenkins-demo jenkins-ci-cd-demo:%BUILD_NUMBER%'
+                bat 'docker run -d -p 3000:3000 --name jenkins-demo -e BUILD_NUMBER=%BUILD_NUMBER% jenkins-ci-cd-demo:%BUILD_NUMBER%'
             }
         }
     }

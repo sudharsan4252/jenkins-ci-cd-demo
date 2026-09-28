@@ -24,7 +24,12 @@ pipeline {
                 bat 'npm test'
             }
         }
-
+        stage('Docker Check') {
+    steps {
+        echo 'Checking Docker...'
+        bat 'docker --version'
+    }
+}
         stage('Build') {
             steps {
                 echo 'Building application...'

@@ -1,0 +1,10 @@
+{
+  "name": "jenkins-ci-cd-demo",
+  "version": "1.0.0",
+  "description": "Learning Jenkins CI/CD with Git",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "node test.js"
+  }
+}

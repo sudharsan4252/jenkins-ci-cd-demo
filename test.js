@@ -2,7 +2,7 @@ console.log("Running tests...");
 
 const result = 10 + 20;
 
-if (result === 30) {
+if (result === 50) {
     console.log("TEST PASSED");
     process.exit(0);
     // they are more important

@@ -27,6 +27,7 @@ pipeline {
         stage('Docker Check') {
     steps {
         echo 'Checking Docker...'
+        bat 'where docker'
         bat 'docker --version'
     }
 }

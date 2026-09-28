@@ -24,36 +24,16 @@ pipeline {
                 bat 'npm test'
             }
         }
-        stage('Docker Check') {
+        stage('Docker Build') {
     steps {
-        echo 'Checking Docker...'
-        bat 'where docker'
-        bat 'docker --version'
+        echo 'Building Docker image...'
+        bat 'docker build -t jenkins-ci-cd-demo:%BUILD_NUMBER% .'
     }
 }
-        stage('Build') {
-            steps {
-                echo 'Building application...'
-
-                bat 'if exist build rmdir /s /q build'
-                bat 'mkdir build'
-
-                bat 'copy /Y app.js build\\app.js'
-                bat 'copy /Y package.json build\\package.json'
-                bat 'copy /Y package-lock.json build\\package-lock.json'
-            }
-        }
-
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
             }
-        }
-    }
-
-    post {
-        success {
-            archiveArtifacts artifacts: 'build/**', fingerprint: true
         }
     }
 }

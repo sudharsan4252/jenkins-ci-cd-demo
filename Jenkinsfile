@@ -24,15 +24,22 @@ pipeline {
                 bat 'npm test'
             }
         }
+
         stage('Docker Build') {
-    steps {
-        echo 'Building Docker image...'
-        bat 'docker build -t jenkins-ci-cd-demo:%BUILD_NUMBER% .'
-    }
-}
+            steps {
+                echo 'Building Docker image...'
+                bat 'docker build -t jenkins-ci-cd-demo:%BUILD_NUMBER% .'
+            }
+        }
+
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
+                echo 'Deploying Docker container...'
+
+                bat 'docker stop jenkins-demo || exit 0'
+                bat 'docker rm jenkins-demo || exit 0'
+
+                bat 'docker run -d -p 3000:3000 --name jenkins-demo jenkins-ci-cd-demo:%BUILD_NUMBER%'
             }
         }
     }
